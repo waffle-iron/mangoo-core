@@ -1,0 +1,16 @@
+{
+  "name": "core",
+  "description": "Mango core application",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
