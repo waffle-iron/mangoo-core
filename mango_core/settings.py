@@ -8,7 +8,7 @@ SECRET_KEY = "jyghqie2a+r_m9wp02w%9h6#*y+5$)12ac!a6jxv^7j43e#kth&g6+54-"
 
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', ]
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -65,7 +65,6 @@ DATABASES['default'].update(db_from_env)
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-
 ugettext = lambda s: s
 
 LANGUAGES = (
@@ -89,7 +88,6 @@ MEDIA_URL = ''
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -110,15 +108,15 @@ LOGGING = {
 #     RAVEN_CONFIG = {
 #         'dsn': host_properties['host']['raven_dsn']
 #     }
-    # Uncomment the following to add release information to sentry reports
-    # try:
-    #    with open('APP_NAME/__init__.py', 'r') as fd:
-    #        RAVEN_CONFIG['release'] = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE).group(1)
-    # except IOError:
-    #    RAVEN_CONFIG['release'] = 'unknown'
-    # INSTALLED_APPS += (
-    #     'raven.contrib.django',
-    # )
+# Uncomment the following to add release information to sentry reports
+# try:
+#    with open('APP_NAME/__init__.py', 'r') as fd:
+#        RAVEN_CONFIG['release'] = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE).group(1)
+# except IOError:
+#    RAVEN_CONFIG['release'] = 'unknown'
+# INSTALLED_APPS += (
+#     'raven.contrib.django',
+# )
 
 # try to load local_settings.py if it exists
 try:
