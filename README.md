@@ -1,2 +1,2 @@
-# core
-Core application
+# mango-core
+mango core application
