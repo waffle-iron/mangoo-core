@@ -58,7 +58,8 @@ coverage.xml
 
 # Django stuff:
 *.log
-local_settings.py
+mango_core/local_settings.py
+.env
 
 # Sphinx documentation
 docs/_build/
@@ -74,3 +75,4 @@ target/
 
 properties*.json
 !properties.template.json
+
