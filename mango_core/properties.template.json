@@ -1,0 +1,15 @@
+{
+  "host": {
+    "log_file": "",
+    "raven_dsn": "",
+    "django_secret_key": ""
+  },
+  "database": {
+    "ENGINE": "",
+    "NAME": "",
+    "USER": "",
+    "PASSWORD": "",
+    "HOST": "",
+    "PORT": ""
+  }
+}
