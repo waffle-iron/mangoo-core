@@ -96,58 +96,92 @@ if len(LOG_FILENAME) > 0 and LOG_FILENAME[0] != '/':
 elif len(LOG_FILENAME) == 0:
     LOG_FILENAME = 'django.log'
 
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        },
-        "request_id": {
-            "()": "request_id.logging.RequestIdFilter"
-        }
-    },
     'formatters': {
         'verbose': {
-            'format': "[%(request_id)s] [%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
         },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
     },
     'handlers': {
-        'logfile': {
+        'null': {
             'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': LOG_FILENAME,
-            'formatter': 'verbose',
-            'filters': ['request_id'],
+            'class': 'logging.NullHandler',
         },
-        'sentry': {
-            'level': 'WARNING',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            'tags': {},
-        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
     },
     'loggers': {
-        'nrpy': {
-            'handlers': ['logfile'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.request': {
-            'handlers': ['logfile'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.db.backends': {
-            'handlers': [],
-        },
-        '': {
-            'handlers': ['logfile', 'sentry'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
+        'testlogger': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
     }
 }
+
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False,
+#     'filters': {
+#         'require_debug_false': {
+#             '()': 'django.utils.log.RequireDebugFalse'
+#         },
+#         "request_id": {
+#             "()": "request_id.logging.RequestIdFilter"
+#         }
+#     },
+#     'formatters': {
+#         'verbose': {
+#             'format': "[%(request_id)s] [%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+#             'datefmt': "%d/%b/%Y %H:%M:%S"
+#         },
+#     },
+#     'handlers': {
+#         'logfile': {
+#             'level': 'DEBUG',
+#             'class': 'logging.FileHandler',
+#             'filename': LOG_FILENAME,
+#             'formatter': 'verbose',
+#             'filters': ['request_id'],
+#         },
+#         'sentry': {
+#             'level': 'WARNING',
+#             'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
+#             'tags': {},
+#         },
+#     },
+#     'loggers': {
+#         'nrpy': {
+#             'handlers': ['logfile'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         'django.request': {
+#             'handlers': ['logfile'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#         'django.db.backends': {
+#             'handlers': [],
+#         },
+#         '': {
+#             'handlers': ['logfile', 'sentry'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     }
+# }
 
 # if 'raven_dsn' in host_properties['host'] and host_properties['host']['raven_dsn']:
 #     RAVEN_CONFIG = {
