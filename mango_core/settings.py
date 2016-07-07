@@ -6,6 +6,17 @@ import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "jyghqie2a+r_m9wp02w%9h6#*y+5$)12ac!a6jxv^7j43e#kth&g6+54-"
 
+# here() gives us file paths from the root of the system to the directory
+# holding the current file.
+here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
+
+PROJECT_ROOT = here("..")
+
+# root() gives us file paths from the root of the system to whatever
+# folder(s) we pass it starting at the parent directory of the current file.
+root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
+
+
 DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
@@ -38,7 +49,7 @@ ROOT_URLCONF = 'mango_core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../mango_core/templates')]
+        'DIRS': [root('templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
