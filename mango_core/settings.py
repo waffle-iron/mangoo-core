@@ -6,9 +6,20 @@ import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "jyghqie2a+r_m9wp02w%9h6#*y+5$)12ac!a6jxv^7j43e#kth&g6+54-"
 
+# here() gives us file paths from the root of the system to the directory
+# holding the current file.
+here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
+
+PROJECT_ROOT = here("..")
+
+# root() gives us file paths from the root of the system to whatever
+# folder(s) we pass it starting at the parent directory of the current file.
+root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
+
+
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*', ]
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -38,7 +49,7 @@ ROOT_URLCONF = 'mango_core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../mango_core/templates')]
+        'DIRS': [root('templates')]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -65,7 +76,6 @@ DATABASES['default'].update(db_from_env)
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-
 ugettext = lambda s: s
 
 LANGUAGES = (
@@ -89,79 +99,35 @@ MEDIA_URL = ''
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-LOG_FILENAME = "mango_core.log"
-if len(LOG_FILENAME) > 0 and LOG_FILENAME[0] != '/':
-    # If not absolute path, put them in logs/xxx.log
-    LOG_FILENAME = os.path.join(BASE_DIR, 'logs', LOG_FILENAME)
-elif len(LOG_FILENAME) == 0:
-    LOG_FILENAME = 'django.log'
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_false': {
-            '()': 'django.utils.log.RequireDebugFalse'
-        },
-        "request_id": {
-            "()": "request_id.logging.RequestIdFilter"
-        }
-    },
-    'formatters': {
-        'verbose': {
-            'format': "[%(request_id)s] [%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-    },
     'handlers': {
-        'logfile': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filename': LOG_FILENAME,
-            'formatter': 'verbose',
-            'filters': ['request_id'],
-        },
-        'sentry': {
-            'level': 'WARNING',
-            'class': 'raven.contrib.django.raven_compat.handlers.SentryHandler',
-            'tags': {},
+        'console': {
+            'class': 'logging.StreamHandler',
         },
     },
     'loggers': {
-        'nrpy': {
-            'handlers': ['logfile'],
-            'level': 'DEBUG',
-            'propagate': True,
+        'django': {
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'ERROR'),
         },
-        'django.request': {
-            'handlers': ['logfile'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'django.db.backends': {
-            'handlers': [],
-        },
-        '': {
-            'handlers': ['logfile', 'sentry'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    }
+    },
 }
 
 # if 'raven_dsn' in host_properties['host'] and host_properties['host']['raven_dsn']:
 #     RAVEN_CONFIG = {
 #         'dsn': host_properties['host']['raven_dsn']
 #     }
-    # Uncomment the following to add release information to sentry reports
-    # try:
-    #    with open('APP_NAME/__init__.py', 'r') as fd:
-    #        RAVEN_CONFIG['release'] = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE).group(1)
-    # except IOError:
-    #    RAVEN_CONFIG['release'] = 'unknown'
-    # INSTALLED_APPS += (
-    #     'raven.contrib.django',
-    # )
+# Uncomment the following to add release information to sentry reports
+# try:
+#    with open('APP_NAME/__init__.py', 'r') as fd:
+#        RAVEN_CONFIG['release'] = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE).group(1)
+# except IOError:
+#    RAVEN_CONFIG['release'] = 'unknown'
+# INSTALLED_APPS += (
+#     'raven.contrib.django',
+# )
 
 # try to load local_settings.py if it exists
 try:
