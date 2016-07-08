@@ -29,7 +29,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'request_id',
+    'mango_core_common',
 )
 
 MIDDLEWARE_CLASSES = (
