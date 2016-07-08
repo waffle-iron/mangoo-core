@@ -18,6 +18,9 @@ env:
 # - CFLAGS=-Qunused-arguments
 # - CPPFLAGS=-Qunused-arguments
 
+before_install:
+  - export DATABASE_URL="postgres://postgres:@127.0.0.1:5432/travisdb"
+
 install:
   - pip install -r requirements.txt
 # - pip install django==$DJANGO --quiet
