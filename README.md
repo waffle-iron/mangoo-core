@@ -1,4 +1,4 @@
-[ ![Codeship Status for mango-app/mango-core](https://codeship.com/projects/7c833590-2735-0134-5036-06837b627ec4/status?branch=master)](https://codeship.com/projects/162222)
+[![Build Status](https://travis-ci.org/mango-app/mango-core.svg?branch=development)](https://travis-ci.org/mango-app/mango-core)
 
 This is the readme file, include here:
 - Release notes (format: #4 Add date field in search filter)
