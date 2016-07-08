@@ -27,7 +27,9 @@ before_script:
   - psql -c "CREATE DATABASE travisdb;" -U postgres
 
 script:
-  - sh build_forum.sh
+  - python manage.py migrate --noinput
+  - python manage.py makemigrations mango_core_common --noinput
+  - python manage.py migrate --noinput
 
 after_success:
 - pip freeze
