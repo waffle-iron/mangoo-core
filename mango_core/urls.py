@@ -1,5 +1,5 @@
 from django.conf.urls import url, include, patterns
-from apps.mango_core_common.views import HomePage
+from mango_core_common.views import HomePage
 from django.conf import settings
 
 urlpatterns = [
