@@ -61,10 +61,15 @@ TEMPLATES = [
     },
 ]
 
+# test environment
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': 'test',
+    'USER': os.environ.get('PG_USER'),
+    'PASSWORD': os.environ.get('PG_PASSWORD'),
+    'HOST': '127.0.0.1',
+  }
 }
 
 # Update database configuration with $DATABASE_URL.
