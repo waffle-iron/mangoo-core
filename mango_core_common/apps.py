@@ -4,4 +4,4 @@ from django.apps import AppConfig
 
 
 class MangoCoreCommonConfig(AppConfig):
-    name = 'apps.mango_core_common'
+    name = 'mango_core_common'
