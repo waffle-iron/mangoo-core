@@ -3,19 +3,17 @@ import os
 from django.core.exceptions import ImproperlyConfigured
 import dj_database_url
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SECRET_KEY = "jyghqie2a+r_m9wp02w%9h6#*y+5$)12ac!a6jxv^7j43e#kth&g6+54-"
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', ''),
 
 # here() gives us file paths from the root of the system to the directory
 # holding the current file.
-here = lambda * x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
+here = lambda *x: os.path.join(os.path.abspath(os.path.dirname(__file__)), *x)
 
 PROJECT_ROOT = here("..")
 
 # root() gives us file paths from the root of the system to whatever
 # folder(s) we pass it starting at the parent directory of the current file.
-root = lambda * x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
-
+root = lambda *x: os.path.join(os.path.abspath(PROJECT_ROOT), *x)
 
 DEBUG = False
 
@@ -29,10 +27,11 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'mango_core_common',
+    'apps.mango_core_common',
 )
 
 MIDDLEWARE_CLASSES = (
+    'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -41,7 +40,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
 )
 
 ROOT_URLCONF = 'mango_core.urls'
@@ -80,10 +78,9 @@ ugettext = lambda s: s
 
 LANGUAGES = (
     ('en', ugettext('English')),
-    # ('fr', ugettext('French')),
 )
 
-LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
+LOCALE_PATHS = (os.path.join(PROJECT_ROOT, 'locale'),)
 
 SITE_ID = 1
 TIME_ZONE = 'Europe/Brussels'
@@ -92,7 +89,7 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 STATIC_URL = '/static/'
 MEDIA_ROOT = ''
 MEDIA_URL = ''
@@ -114,20 +111,6 @@ LOGGING = {
         },
     },
 }
-
-# if 'raven_dsn' in host_properties['host'] and host_properties['host']['raven_dsn']:
-#     RAVEN_CONFIG = {
-#         'dsn': host_properties['host']['raven_dsn']
-#     }
-# Uncomment the following to add release information to sentry reports
-# try:
-#    with open('APP_NAME/__init__.py', 'r') as fd:
-#        RAVEN_CONFIG['release'] = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE).group(1)
-# except IOError:
-#    RAVEN_CONFIG['release'] = 'unknown'
-# INSTALLED_APPS += (
-#     'raven.contrib.django',
-# )
 
 # try to load local_settings.py if it exists
 try:

@@ -1,8 +1,9 @@
 from django.test import TestCase
-from mango_core_common.models import Animal
+from apps.mango_core_common.models import Animal
 
 
 class AnimalTestCase(TestCase):
+
     def setUp(self):
         Animal.objects.create(name="lion", sound="roar")
         Animal.objects.create(name="cat", sound="meow")
