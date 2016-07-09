@@ -112,7 +112,7 @@ LOGGING = {
     },
 }
 
-# try to load local_settings.py if it exists
+# try to load local_settings.py if it exists (for local development only)
 try:
     from local_settings import *
 except Exception as e:
