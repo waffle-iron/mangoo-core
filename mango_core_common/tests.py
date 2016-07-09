@@ -12,5 +12,5 @@ class AnimalTestCase(TestCase):
         """Animals that can speak are correctly identified"""
         lion = Animal.objects.get(name="lion")
         cat = Animal.objects.get(name="cat")
-        self.assertEqual(lion.speak(), 'The lion says "roar"')
-        self.assertEqual(cat.speak(), 'The cat says "meow"')
+        self.assertEqual(lion.speak(), 'Tohe lion says "roar"')
+        self.assertEqual(cat.speak(), 'Tohe cat says "meow"')
