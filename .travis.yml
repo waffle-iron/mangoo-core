@@ -22,7 +22,7 @@ before_script:
 
 script:
   - python manage.py migrate --noinput
-  - python manage.py makemigrations mango_core_common --noinput
+  - python manage.py makemigrations src --noinput
   - python manage.py migrate --noinput
   - coverage run --source=mango_core ./manage.py test
 

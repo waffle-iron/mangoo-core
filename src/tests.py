@@ -1,5 +1,6 @@
 from django.test import TestCase
-from mango_core_common.models import Animal
+
+from src import Animal
 
 
 class AnimalTestCase(TestCase):

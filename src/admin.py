@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin
 
-from mango_core_common.models import Animal
+from src.models import Animal
 
 
 class AnimalModelAdmin(ModelAdmin):

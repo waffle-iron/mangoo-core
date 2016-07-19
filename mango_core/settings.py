@@ -27,7 +27,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'mango_core_common',
+    'tastypie',
+    'src',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,16 +62,28 @@ TEMPLATES = [
     },
 ]
 
-# test environment
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    'NAME': 'test',
-    'USER': os.environ.get('PG_USER'),
-    'PASSWORD': os.environ.get('PG_PASSWORD'),
-    'HOST': '127.0.0.1',
-  }
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "mango_core",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
 }
+TASTYPIE_DEFAULT_FORMATS = ['json',]
+
+# test environment
+# DATABASES = {
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#     'NAME': 'test',
+#     'USER': os.environ.get('PG_USER'),
+#     'PASSWORD': os.environ.get('PG_PASSWORD'),
+#     'HOST': '127.0.0.1',
+#   }
+# }
 
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
