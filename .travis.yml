@@ -26,6 +26,11 @@ script:
   - python manage.py makemigrations mango_core_common --noinput
   - python manage.py migrate --noinput
 
+deploy:
+  provider: heroku
+  api_key:
+    secure: "b63e092d-2db3-42a6-9855-fe36cc34a898"
+
 after_success:
 - pip freeze
 #- echo Uploading code coverage data ...; coveralls
